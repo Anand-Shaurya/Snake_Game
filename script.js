@@ -6,11 +6,13 @@ let snake = [{ x: 10, y: 10 }];
 let direction = { x: 0, y: 0 };
 let food = { x: 0, y: 0 };
 let gameInterval;
+let score_label = document.getElementById('score');
+let score = 0;
 
 function startGame() {
     resetGame();
     generateFood();
-    gameInterval = setInterval(gameLoop, 100);
+    gameInterval = setInterval(gameLoop, 150);
 }
 
 function resetGame() {
@@ -28,6 +30,7 @@ function gameLoop() {
     updateSnake();
     if (checkCollision()) {
         clearInterval(gameInterval);
+        resetScore();
         alert('Game Over! Refresh to play again.');
         return;
     }
@@ -39,11 +42,22 @@ function updateSnake() {
     
     if (head.x === food.x && head.y === food.y) {
         snake.unshift(head);
+        updateScore();
         generateFood();
     } else {
         snake.unshift(head);
         snake.pop();
     }
+}
+
+function updateScore() {
+        score += 1;
+        score_label.innerHTML = score;
+}
+
+function resetScore() {
+    score = 0;
+    score_label.innerHTML = score;
 }
 
 function checkCollision() {
