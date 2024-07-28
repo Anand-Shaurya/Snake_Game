@@ -18,6 +18,7 @@ function startGame() {
 function resetGame() {
     snake = [{ x: 10, y: 10 }];
     direction = { x: 0, y: 0 };
+    resetScore();
     clearInterval(gameInterval);
 }
 
@@ -30,7 +31,6 @@ function gameLoop() {
     updateSnake();
     if (checkCollision()) {
         clearInterval(gameInterval);
-        resetScore();
         alert('Game Over! Refresh to play again.');
         return;
     }
@@ -87,13 +87,26 @@ function draw() {
     snake.forEach(segment => {
         ctx.fillRect(segment.x, segment.y, 10, 10);
     });
+
+}
+function moveup() {
+    if (direction.y === 0) direction = { x: 0, y: -10 };
+}
+function movedown() {
+    if (direction.y === 0) direction = { x: 0, y: 10 };
+}
+function moveright() {
+    if (direction.x === 0) direction = { x: 10, y: 0 };
+}
+function moveleft() {
+    if (direction.x === 0) direction = { x: -10, y: 0 };
 }
 
 // Handle keyboard input
 document.addEventListener('keydown', (event) => {
     switch (event.key) {
         case 'ArrowUp':
-            if (direction.y === 0) direction = { x: 0, y: -10 };
+            moveup();
             break;
         case 'ArrowDown':
             if (direction.y === 0) direction = { x: 0, y: 10 };

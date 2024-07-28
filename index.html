@@ -8,8 +8,14 @@
 </head>
 <body>
     <h1>Snake Game</h1>
-    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <canvas id="gameCanvas" width="300" height="300"></canvas>
     <label id="score">0</label>
+    <div style="text-align:center;width:360px;">
+        <button onclick="moveup()">UP</button><br><br>
+        <button onclick="moveleft()">LEFT</button>
+        <button onclick="moveright()">RIGHT</button><br><br>
+        <button onclick="movedown()">DOWN</button>
+    </div>
     <button id="startGame">Start Game</button>
     <script src="script.js" defer></script>
 </body>
