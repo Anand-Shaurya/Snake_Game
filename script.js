@@ -1,7 +1,9 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const startButton = document.getElementById('startGame');
+const continueButton = document.getElementById('continueGame');
 
+let lives = 3
 let snake = [{ x: 10, y: 10 }];
 let direction = { x: 0, y: 0 };
 let food = { x: 0, y: 0 };
@@ -9,17 +11,33 @@ let gameInterval;
 let score_label = document.getElementById('score');
 let score = 0;
 
+
 function startGame() {
     resetGame();
     generateFood();
-    gameInterval = setInterval(gameLoop, 150);
+    gameInterval = setInterval(gameLoop, 180);
+}
+
+function continueGame() {
+    snake = [{ x: 10, y: 10 }];
+    direction = { x: 0, y: 0 };
+    gameInterval = setInterval(gameLoop, 180);
+    if (lives > 0){
+        lives -= 1;
+        continueButton.innerText = "Continue: " + lives;
+    }
+    else{
+        resetGame();
+        lives = 3;
+        continueButton.innerText = "Continue: " + lives;
+    }      
 }
 
 function resetGame() {
     snake = [{ x: 10, y: 10 }];
     direction = { x: 0, y: 0 };
-    resetScore();
-    clearInterval(gameInterval);
+    resetScore()
+    clearInterval(gameInterval);     
 }
 
 function generateFood() {
@@ -121,3 +139,4 @@ document.addEventListener('keydown', (event) => {
 });
 
 startButton.addEventListener('click', startGame);
+continueButton.addEventListener('click', continueGame);
